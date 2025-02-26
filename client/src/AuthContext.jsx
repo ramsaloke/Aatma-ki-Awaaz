@@ -16,7 +16,7 @@ export const AuthProvider = ({children}) => { // here AuthProvider is a global s
 
     const fetchUser = async () => {
         try {
-            const response = await fetch("http://localhost:8080/api/auth/profile", {
+            const response = await fetch("https://aatma-ki-awaaz.onrender.com/api/auth/profile", {
                 method: "GET",
                 credentials: "include",
             });
