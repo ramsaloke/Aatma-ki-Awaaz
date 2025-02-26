@@ -25,8 +25,12 @@ connectToDB();
 
 const PORT = process.env.PORT || 8080;
 //middleware
+const allowedOrigins = [
+    'http://localhost:5173',
+    'https://aatmakiaawaz.vercel.app/',
+];
 app.use(cors({
-    origin: 'http://localhost:5173',
+    origin: allowedOrigins,
     methods: ['GET', 'POST', 'PUT', 'DELETE'], // ✅ Added PUT & DELETE
     credentials: true  
 }));

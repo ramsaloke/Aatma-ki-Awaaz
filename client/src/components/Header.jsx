@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../AuthContext";
 
+
 const Header = () => {
   const { user, fetchUser } = useContext(AuthContext);
   console.log(user);
