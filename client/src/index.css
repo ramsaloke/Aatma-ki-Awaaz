@@ -1,0 +1,57 @@
+@import "tailwindcss";
+
+@layer base {
+    body {
+        @apply bg-[#fff]
+    }
+    main {
+        @apply p-2.5 max-w-[924px] my-0 mx-auto 
+    }
+    
+    header {
+        @apply flex justify-between mb-[50px] items-center mt-[20px]
+    }
+    header a.logo {
+        @apply font-bold text-[#FF9933] text-xl
+    }
+    header nav {
+        @apply flex gap-4
+    }
+    div.post {
+        @apply grid gap-5 mb-[30px] grid-cols-1 sm:grid-cols-[0.9fr_1.1fr];
+    }
+   div.post-page div.image img{
+    @apply object-cover object-center w-[100%]
+   }
+    img{ 
+        @apply max-w-[100%]
+    }
+    div.post-page div.content p {
+        line-height: 2;
+    }
+    div.post div.pargraph  {
+      @apply m-0 text-xl
+    }
+    h2 {
+        @apply text-xl font-semibold text-orange-400
+    }
+    div .info {
+        @apply mb-1 text-[#888] font-medium flex gap-2.5
+    }
+    div a.author {
+        @apply text-[#333]
+    }
+   div .post p.pargraph {
+   @apply my-2.5 mx-0
+   }
+   input {
+    @apply block mb-1.5 w-[100%] px-1.5 py-2 border-2 rounded-md bg-[#fff] 
+   }
+   button{
+    @apply w-[100%] block bg-[#555] border-none text-[#fff] rounded-sm px-[7px]  py-2 
+   }
+   
+   form.login h1, form.register h1 {
+    @apply text-center 
+   }
+}
