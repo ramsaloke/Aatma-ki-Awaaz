@@ -8,7 +8,7 @@ const [posts , setPosts] = useState([])
 useEffect(()=>{
   const fetchData = async()=>{
     try {
-      const response = await fetch('http://localhost:8080/api/auth/posts', {
+      const response = await fetch('https://aatma-ki-awaaz.onrender.com/api/auth/posts', {
          method: "GET",
   credentials: "include",
       })
