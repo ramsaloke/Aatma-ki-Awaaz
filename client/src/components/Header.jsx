@@ -18,7 +18,7 @@ const Header = () => {
             <Link to="/create">Create Post</Link>
             <Link to="/"
               onClick={async () => {
-                await fetch("http://localhost:8080/api/auth/logout", {
+                await fetch("https://aatma-ki-awaaz.onrender.com/api/auth/logout", {
                   method: "POST",
                   credentials: "include",
                 });
