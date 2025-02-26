@@ -102,7 +102,7 @@ useEffect(()=>{
       }
     
       try {
-        const response = await fetch(`http://localhost:8080/api/auth/posts/${id}`, {
+        const response = await fetch(`https://aatma-ki-awaaz.onrender.com/api/auth/posts/${id}`, {
           method: "PUT",
           credentials: "include", // Important for sending cookies
           body: data, // FormData is sent directly
