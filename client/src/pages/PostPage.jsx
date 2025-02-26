@@ -42,7 +42,7 @@ const PostPage = () => {
     )}
 </div>
 
-            <img src={`http://localhost:8080/${postInfo.cover}`} alt="" />
+            <img src={`https://aatma-ki-awaaz.onrender.com/${postInfo.cover}`} alt="" />
             </div>
            
           
