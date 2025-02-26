@@ -27,13 +27,16 @@ const PORT = process.env.PORT || 8080;
 //middleware
 const allowedOrigins = [
     'http://localhost:5173',
-    'https://aatmakiaawaz.vercel.app/',
+    'https://aatmakiaawaz.vercel.app',
 ];
 app.use(cors({
     origin: allowedOrigins,
-    methods: ['GET', 'POST', 'PUT', 'DELETE'], // ✅ Added PUT & DELETE
-    credentials: true  
+    methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allowed HTTP methods
+    credentials: true, // Allow credentials
+    allowedHeaders: ['Content-Type', 'Authorization'], // Allowed headers
 }));
+app.options('*', cors()); // Handle preflight requests for all routes
+
 app.use(express.json());
 app.use(cookieParser());
 
