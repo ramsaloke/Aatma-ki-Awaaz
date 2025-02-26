@@ -26,6 +26,7 @@ connectToDB();
 const PORT = process.env.PORT || 8080;
 //middleware
 const allowedOrigins = [
+    'https://aatma-ki-awaaz-1.onrender.com',
     'http://localhost:5173',
     'https://aatmakiaawaz.vercel.app',
 ];
