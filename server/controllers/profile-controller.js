@@ -2,24 +2,28 @@ import jwt from "jsonwebtoken";
 import fs from 'fs'
 import Post from "../models/Post-model.js";
 const JWT_SECRET = process.env.JWT_SECRET
+
 const profileUser = async (req, res) => {
     try {
         console.log("Cookies received in profileUser:", req.cookies);
-        const { token } = req.cookies; 
+        const { token } = req.cookies;
 
         if (!token) {
+            console.log("No token found in cookies");
             return res.status(401).json({ success: false, message: "Unauthorized. No token provided." });
         }
 
         jwt.verify(token, process.env.JWT_SECRET, {}, (err, decodedUser) => {
             if (err) {
+                console.log("Token verification failed:", err);
                 return res.status(403).json({ success: false, message: "Invalid or expired token" });
             }
+            console.log("Token verified successfully. Decoded user:", decodedUser);
             res.json({ success: true, user: decodedUser });
         });
 
     } catch (error) {
-        console.error(error);
+        console.error("Error in profileUser controller:", error);
         res.status(500).json({ success: false, message: "Error in profileUser controller, please check it" });
     }
 };

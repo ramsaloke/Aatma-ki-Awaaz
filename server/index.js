@@ -26,17 +26,24 @@ connectToDB();
 const PORT = process.env.PORT || 8080;
 //middleware
 const allowedOrigins = [
-    'https://aatma-ki-awaaz-1.onrender.com',
-    'http://localhost:5173',
-    'https://aatmakiaawaz.vercel.app',
+    "https://aatma-ki-awaaz-1.onrender.com",  // ✅ Your frontend URL
+    "http://localhost:5173"  // ✅ Local development
 ];
+
 app.use(cors({
-    origin: allowedOrigins,
-    methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allowed HTTP methods
-    credentials: true, // Allow credentials
-    allowedHeaders: ['Content-Type', 'Authorization'], // Allowed headers
+    origin: (origin, callback) => {
+        if (!origin || allowedOrigins.includes(origin)) {
+            callback(null, true);
+        } else {
+            callback(new Error("Not allowed by CORS"));
+        }
+    },
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true, // ✅ Allows cookies
+    allowedHeaders: ["Content-Type", "Authorization"],
 }));
-app.options('*', cors()); // Handle preflight requests for all routes
+app.options("*", cors()); // Handle preflight requests
+
 
 app.use(express.json());
 app.use(cookieParser());

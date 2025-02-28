@@ -42,36 +42,44 @@ const loginUser = async (req, res) => {
     try {
         const { userName, password } = req.body;
 
-        // Finding user in db
+        // Finding user in DB
         const user = await User.findOne({ userName });
         if (!user || !user.password) {
-            return res.status(401).json({ success: false, message: "Invalid username or password" });
+            return res.status(401).json({ success: false, message: "Invalid credentials" });
         }
 
         // Compare passwords
         const isMatch = await bcrypt.compare(password, user.password);
         if (!isMatch) {
-            return res.status(400).json({ success: false, message: "Invalid username or password" });
+            return res.status(401).json({ success: false, message: "Invalid credentials" });
         }
 
         // Generate JWT Token
-        const token = jwt.sign({ id: user._id, userName: user.userName }, JWT_SECRET, { expiresIn: "7d" });
+        const token = jwt.sign(
+            { id: user._id, userName: user.userName },
+            process.env.JWT_SECRET,  // ✅ Use env variable
+            { expiresIn: "7d" }
+        );
 
-        // ✅ Set token in cookie
+        // ✅ Set token in HTTP-only cookie
         res.cookie("token", token, {
-            httpOnly: true,   // ✅ Secure: prevents XSS attacks
-            sameSite: "lax",  // ✅ Prevents CSRF attacks
+            httpOnly: true,   // ✅ Prevents XSS attacks
             secure: process.env.NODE_ENV === "production", // ✅ True for HTTPS
-            maxAge: 7 * 24 * 60 * 60 * 1000 // 7 days
+            sameSite: "none", // ✅ Required for cross-origin requests
         });
 
-        res.status(200).json({ success: true, message: "Login successful", user: { userName: user.userName } });
+        res.status(200).json({
+            success: true,
+            message: "Login successful",
+            user: { userName: user.userName }, // ✅ Return only safe data
+        });
 
     } catch (error) {
         console.error(error);
         res.status(500).json({ success: false, message: "Internal Server Error" });
     }
 };
+
 
 
 // logout 
