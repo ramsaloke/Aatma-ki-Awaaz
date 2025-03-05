@@ -84,9 +84,14 @@ const loginUser = async (req, res) => {
 
 // logout 
 const logoutUser = (req, res) => {
-    res.clearCookie("token", { httpOnly: true, sameSite: "lax", secure: false });
-    res.json({ success: true, message: "Logged out successfully" });
+    console.log("Clearing token cookie...");
+    res.clearCookie("token", { httpOnly: true, secure: true, sameSite: "None" });
+
+    console.log("Sending logout response...");
+    return res.status(200).json({ success: true, message: "Logged out successfully" });
 };
+
+
 
 
 export default { registerUser, loginUser , logoutUser };

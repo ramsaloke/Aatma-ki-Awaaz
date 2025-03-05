@@ -16,25 +16,27 @@ export const AuthProvider = ({children}) => { // here AuthProvider is a global s
 
     const fetchUser = async () => {
         try {
-            const response = await fetch("https://aatma-ki-awaaz.onrender.com/api/auth/profile", {
-                method: "GET",
-                credentials: "include",
-            });
-    
-            const data = await response.json();
-            console.log("Fetched user data:", data);
-    
-            if (data?.success && data?.user) { 
-                console.log("User ID:", data.user.id); // ✅ Check if `user` exists inside response
-                setUser(data.user);  // ✅ Store only `data.user`, NOT `data`
-            } else {
-                setUser(null);
-            }
+          const response = await fetch("https://aatma-ki-awaaz.onrender.com/api/auth/profile", {
+            method: "GET",
+            credentials: "include",
+          });
+      
+          const data = await response.json();
+          console.log("Fetched user data:", data);
+      
+          if (data.success && data.user) {
+            setUser(data.user); 
+          } else {
+            setUser(null);  // ✅ Ensure the user state resets
+          }
         } catch (error) {
-            console.error("Error fetching user", error);
-            setUser(null);
+          setUser(null);  
+          console.error("Error fetching user:", error);
         }
-    };
+      };
+      
+      
+      
     
  
     useEffect(()=>{

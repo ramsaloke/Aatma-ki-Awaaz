@@ -1,4 +1,4 @@
-import mb from "../assets/mb.jpg";
+
 import { Link } from "react-router-dom";
 import {format} from 'date-fns'
 // eslint-disable-next-line react/prop-types

@@ -1,11 +1,29 @@
-import { Link } from "react-router-dom";
+import { Link , Navigate} from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../AuthContext";
 
 
 const Header = () => {
-  const { user, fetchUser } = useContext(AuthContext);
+  const { user, fetchUser , setUser} = useContext(AuthContext);
   console.log(user);
+  const handleLogout = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await fetch("https://aatma-ki-awaaz.onrender.com/api/auth/logout", {
+        method: "POST",
+        credentials: "include",
+      });
+
+      if (response.ok) {
+        setUser(null); // ✅ Immediately reset user
+        Navigate("/"); // ✅ Redirect to home
+      } else {
+        console.error("Logout failed");
+      }
+    } catch (error) {
+      console.error("Logout error:", error);
+    }
+  }
   
 
   return (
@@ -17,17 +35,7 @@ const Header = () => {
         {user ? (
           <>
             <Link to="/create">Create Post</Link>
-            <Link to="/"
-              onClick={async () => {
-                await fetch("https://aatma-ki-awaaz.onrender.com/api/auth/logout", {
-                  method: "POST",
-                  credentials: "include",
-                });
-                fetchUser(); // ✅ Update state after logout
-              }}
-            >
-              Logout
-            </Link>
+            <Link to="/" onClick={handleLogout}>Logout</Link>
           </>
         ) : (
           <>
